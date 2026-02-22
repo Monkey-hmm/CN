@@ -1,0 +1,172 @@
+============================================================
+  Lab 5 — Socket Programming  |  File Reference
+============================================================
+
+
+
+============================================================
+Q1 — Web Server (HTTP file server)
+------------------------------------------------------------
+  w5_1_server.py   TCP web server on port 6789.
+                   Serves HTML files from the current directory.
+                   Returns HTTP 200 with file content, or
+                   HTTP 404 if the file is not found.
+
+  w5_1_client.py   HTTP client that sends a GET request to the
+                   web server and prints the response.
+
+  helloworld.html  Sample HTML page used for testing the server.
+
+  How to run:
+    Terminal 1:  python w5_1_server.py
+    Terminal 2:  python w5_1_client.py helloworld.html
+    Terminal 2:  python w5_1_client.py nonexistent.html   (test 404)
+    Or browser:  http://localhost:6789/helloworld.html
+
+============================================================
+Q2 — Addition Client/Server
+------------------------------------------------------------
+  w5_2_server.py   TCP server on port 6790.
+                   Receives two comma-separated integers from
+                   the client, adds them, and sends back the sum.
+
+  w5_2_client.py   Prompts the user for two integers, sends them
+                   to the server, and prints the result.
+
+  How to run:
+    Terminal 1:  python w5_2_server.py
+    Terminal 2:  python w5_2_client.py
+                 Enter first integer : 3
+                 Enter second integer: 7
+                 Server says 3 + 7 = 10
+
+============================================================
+Q3 — Text Message Server (queued multi-client)
+------------------------------------------------------------
+  w5_3_server.py   TCP server on port 6791.
+                   Accepts clients sequentially (queued via
+                   listen backlog). Prints received text messages
+                   to stdout only — no debug output.
+
+  w5_3_client.py   Lets the user type and send multiple text
+                   messages. Type 'exit' to disconnect.
+
+  How to run:
+    Terminal 1:  python w5_3_server.py
+    Terminal 2:  python w5_3_client.py
+                 Message: Hello from client 1
+                 Message: exit
+    Terminal 3:  python w5_3_client.py       (queues until T2 exits)
+                 Message: Hello from client 2
+                 Message: exit
+
+============================================================
+Q4 — Reverse String Server (multi-threaded, 5+ clients)
+------------------------------------------------------------
+  w5_4_server.py   TCP server on port 6792.
+                   Spawns a thread per client so 5+ clients
+                   connect simultaneously. Reverses received
+                   strings and sends them back. Logs all I/O.
+
+  w5_4_client.py   Sends strings to the server and prints the
+                   reversed reply. Type 'exit' to quit.
+
+  How to run:
+    Terminal 1:  python w5_4_server.py
+    Terminal 2:  python w5_4_client.py
+                 Enter string: JIIT
+                 Reversed    : TIIJ
+    Terminal 3:  python w5_4_client.py       (runs simultaneously)
+    Terminal 4:  python w5_4_client.py       (up to 5+ at once)
+
+============================================================
+============================================================
+  Lab 6 — TCP/UDP & Ping  |  File Reference
+============================================================
+
+============================================================
+Q1 — Reverse + Swap Case (TCP & UDP)
+------------------------------------------------------------
+  w6_1_tcp_server.py  TCP server on port 7001.
+                      Reverses the string AND swaps its case.
+                      "network" → "KROWTEN"
+
+  w6_1_tcp_client.py  Sends a string (max 80 chars) to the TCP
+                      server and prints the transformed result.
+
+  w6_1_udp_server.py  UDP server on port 7002.
+                      Same reverse+swapcase logic, connectionless.
+
+  w6_1_udp_client.py  Sends a string to the UDP server and
+                      prints the result.
+
+  How to run (TCP):
+    Terminal 1:  python w6_1_tcp_server.py
+    Terminal 2:  python w6_1_tcp_client.py
+                 Enter a string: network
+                 Server reply: KROWTEN
+
+  How to run (UDP):
+    Terminal 1:  python w6_1_udp_server.py
+    Terminal 2:  python w6_1_udp_client.py
+                 Enter a string: Hello
+                 Server reply: OLLEh
+
+============================================================
+Q2 — File Upload Client/Server
+------------------------------------------------------------
+  w6_2_server.py     TCP server on port 7003.
+                     Receives a file and saves it into an
+                     uploads/ folder in the current directory.
+
+  w6_2_client.py     Sends a local file to the upload server.
+
+  How to run:
+    Terminal 1:  python w6_2_server.py
+    Terminal 2:  python w6_2_client.py helloworld.html
+                 → Uploaded 'helloworld.html' to server.
+    Check:       ls uploads/
+
+============================================================
+Q3 — ICMP Ping (raw sockets)
+------------------------------------------------------------
+  w6_3_icmp_ping.py  Sends ICMP Echo Requests and measures RTT.
+                     Reports min/max/avg RTT and packet loss %.
+                     Requires root/sudo for raw sockets.
+
+  How to run:
+    sudo python w6_3_icmp_ping.py localhost
+    sudo python w6_3_icmp_ping.py google.com 10
+
+============================================================
+Q4 — UDP Ping Client/Server
+------------------------------------------------------------
+  w6_4_udp_ping_server.py  UDP server on port 7004.
+                           Echoes pings back with simulated
+                           30% packet loss.
+
+  w6_4_udp_ping_client.py  Sends UDP pings, measures per-packet
+                           RTT, reports min/max/avg + loss %.
+
+  How to run:
+    Terminal 1:  python w6_4_udp_ping_server.py
+    Terminal 2:  python w6_4_udp_ping_client.py
+                 (sends 10 pings, ~30% will be "lost")
+
+============================================================
+Q5 — UDP Heartbeat
+------------------------------------------------------------
+  w6_5_heartbeat_server.py  UDP server on port 7005.
+                            Detects sequence gaps (lost packets)
+                            and client timeout (no heartbeat
+                            for 5 seconds).
+
+  w6_5_heartbeat_client.py  Sends periodic heartbeat packets
+                            with seq number + timestamp.
+
+  How to run:
+    Terminal 1:  python w6_5_heartbeat_server.py
+    Terminal 2:  python w6_5_heartbeat_client.py
+                 (sends 20 heartbeats, 1 per second)
+
+============================================================
