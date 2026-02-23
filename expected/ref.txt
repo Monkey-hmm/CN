@@ -1,0 +1,49 @@
+============================================================
+Reverse + Swap Case (UDP)
+------------------------------------------------------------
+  udp_reverse_server.py  UDP server on port 12346.
+                              Reverses the string and swaps
+                              its case.
+
+  dp_reverse_client.py  Sends a string to the UDP server
+                              and prints the result.
+
+  How to run:
+    Terminal 1:  python udp_reverse_server.py
+    Terminal 2:  python udp_reverse_client.py
+                 Enter string: Hello
+                 Received: OLLEh
+
+============================================================
+File Upload Client/Server
+------------------------------------------------------------
+  upload_server.py  TCP server on port 12347.
+                         Receives a file and saves it into
+                         an uploads/ folder.
+
+  upload_client.py  Sends a local file to the upload
+                         server.
+
+  How to run:
+    Terminal 1:  python upload_server.py
+    Terminal 2:  python upload_client.py
+                 Enter file name: helloworld.html
+    Check:       ls uploads/
+
+============================================================
+UDP Heartbeat
+------------------------------------------------------------
+  w7_3_heartbeat_server.py  UDP server on port 12348.
+                            Detects sequence gaps and client
+                            timeout (15 seconds).
+
+  w7_3_heartbeat_client.py  Sends 10 heartbeat packets with
+                            sequence number and timestamp,
+                            one per second.
+
+  How to run:
+    Terminal 1:  python heartbeat_server.py
+    Terminal 2:  python heartbeat_client.py
+                 (sends 10 heartbeats, 1 per second)
+
+============================================================
